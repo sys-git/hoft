@@ -9,10 +9,10 @@
 from collections import namedtuple
 
 PositionalError = namedtuple('PositionalError',
-    ('error', 'index', 'param', 'func_name', 'validator_func'))
+    ('error', 'index', 'param', 'func_name', 'func'))
 
 KeywordError = namedtuple('KeywordError',
-    ('error', 'param', 'func_name', 'validator_func'))
+    ('error', 'param', 'func_name', 'func'))
 
 IGNORE = None
 

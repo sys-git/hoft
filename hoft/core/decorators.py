@@ -17,9 +17,9 @@ def analyse_in(*parse_args, **parse_kwargs):
     Decorator for methods (to analyse) the args and kwargs of the decorated callable.
     This method does not modify the args or kwargs in any way.
 
-    :param parse_args: A list of callables which accept a single value only.
+    :param parse_args: A list of callables which accept two values only:
     These callables will be passed the target function's argument at the same position as - the
-    callable is in the decorator's arguments list.
+    callable is in the decorator's arguments list and the index of the argument.
     If callable==IGNORE, then the decorated function's arg is not parsed.
     :param parse_kwargs: A dictionary of name, callables. The name represents the target
     function's kwarg that will be passed to the callable. The callable receives the name,
@@ -53,16 +53,16 @@ def analyse_in(*parse_args, **parse_kwargs):
         def wrapper(*args, **kwargs):
             errors = []
             fail_fast = parse_kwargs.pop('_fail_fast_', False)
-            on_error = parse_kwargs.pop('_on_error', None)
+            on_error = parse_kwargs.pop('_on_error_', None)
 
             _parse_positional_inputs(parse_args, args, errors, on_error, fail_fast)
             _parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast)
 
-            if errors:
-                # We have errors to log: `fail_fast` may be False:
+            if errors and not fail_fast:
+                # We have errors to raise which have not already been raised.
                 exc = errors[0]
                 raise_exc(
-                    exc=exc,
+                    exc=exc.error,
                     on_error=on_error,
                     errors=errors,
                     fail_fast=fail_fast,

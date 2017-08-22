@@ -15,7 +15,7 @@ def _parse_positional_inputs(parse_args, args, errors, on_error, fail_fast):
         # Only (validate) if the func is provided:
         if custom_parser_func is not IGNORE:
             try:
-                custom_parser_func(param)
+                custom_parser_func(param, index=index)
             except Exception as exc:
                 func_name = get_func_name(custom_parser_func)
                 errors.append(
@@ -42,7 +42,7 @@ def _parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast):
         if custom_parser_func is not IGNORE:
             param = kwargs.get(name)
             try:
-                custom_parser_func(param, name, name in kwargs)
+                custom_parser_func(name, param, name in kwargs)
             except Exception as exc:
                 func_name = get_func_name(custom_parser_func)
                 errors.append(
