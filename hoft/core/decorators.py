@@ -8,7 +8,7 @@
 
 import six
 
-from hoft.core.parsers import _parse_keyword_inputs, _parse_positional_inputs
+from hoft.core.parsers import parse_keyword_inputs, parse_positional_inputs
 from .utils import raise_exc
 
 
@@ -55,8 +55,8 @@ def analyse_in(*parse_args, **parse_kwargs):
             fail_fast = parse_kwargs.pop('_fail_fast_', False)
             on_error = parse_kwargs.pop('_on_error_', None)
 
-            _parse_positional_inputs(parse_args, args, errors, on_error, fail_fast)
-            _parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast)
+            parse_positional_inputs(parse_args, args, errors, on_error, fail_fast)
+            parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast)
 
             if errors and not fail_fast:
                 # We have errors to raise which have not already been raised.

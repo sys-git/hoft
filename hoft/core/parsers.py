@@ -9,7 +9,7 @@
 from .utils import IGNORE, KeywordError, PositionalError, conditionally_raise_exc, get_func_name
 
 
-def _parse_positional_inputs(parse_args, args, errors, on_error, fail_fast):
+def parse_positional_inputs(parse_args, args, errors, on_error, fail_fast):
     # Parse the positional inputs:
     for index, (custom_parser_func, param) in enumerate(zip(parse_args, args)):
         # Only (validate) if the func is provided:
@@ -35,7 +35,7 @@ def _parse_positional_inputs(parse_args, args, errors, on_error, fail_fast):
                 )
 
 
-def _parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast):
+def parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast):
     # Parse the keyword inputs we name:
     for name, custom_parser_func in parse_kwargs.items():
         # Only (validate) if the func is provided:
