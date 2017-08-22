@@ -22,7 +22,7 @@ __all__ = [
 
 def get_func_name(f):
     try:
-        return f.func_dict.get('__parse_in_target_func', f).func_name
+        return f.func_name
     except Exception as e:  # NOQA
         # Unable to determine target function validator:
         return None
