@@ -10,14 +10,10 @@ python:
 install:
   - "pip install coveralls"
   - "pip install flake8"
-  - "pip install pep8"
-  - "pip install pylint"
   - "pip install -r requirements/requirements-test.txt"
 # command to run tests
 script:
   - "flake8 hoft setup.py"
-  - "pep8 hoft setup.py"
-  - "pylint --rcfile=.pylintrc hoft setup.py"
   - "nosetests --with-coverage --cover-erase --cover-package=hoft --cover-html"
 
 after_success:
