@@ -18,10 +18,10 @@ __all__ = [
 ]
 
 
-def get_func_name(f):
+def get_func_name(func):
     try:
-        return f.func_name
-    except Exception as e:  # NOQA
+        return func.func_name
+    except Exception:  # NOQA
         # Unable to determine target function validator:
         return None
 
