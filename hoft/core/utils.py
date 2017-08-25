@@ -8,11 +8,9 @@
 
 from collections import namedtuple
 
-PositionalError = namedtuple('PositionalError',
-    ('error', 'index', 'param', 'func_name', 'func'))
+PositionalError = namedtuple('PositionalError', ('error', 'index', 'value', 'func_name', 'func'))
 
-KeywordError = namedtuple('KeywordError',
-    ('error', 'param', 'func_name', 'func'))
+KeywordError = namedtuple('KeywordError', ('error', 'value', 'func_name', 'func'))
 
 IGNORE = None
 

@@ -94,14 +94,15 @@ html_theme = 'alabaster'
 html_theme_options = {
     'logo': 'logo.jpg',
     'logo_name': True,
-    'github_user': 'JOIVY',
+    'github_user': 'sys-git',
     'github_repo': 'hoft',
     'github_button': True,
     'github_banner': True,
     'show_powered_by': False,
+    'page_width': '1280px',
 }
 
-html_show_sourcelink = False
+html_show_sourcelink = True
 html_last_updated_fmt = ''
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -172,6 +173,6 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'hoft', u'hoft Documentation',
-    author, 'hoft', 'StackDriver patchTraces for dummies!',
+    author, 'hoft', 'Higher Order Func Tools',
     'Miscellaneous'),
 ]

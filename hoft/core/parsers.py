@@ -11,18 +11,21 @@ from .utils import IGNORE, KeywordError, PositionalError, conditionally_raise_ex
 
 def parse_positional_inputs(parse_args, args, errors, on_error, fail_fast):
     # Parse the positional inputs:
-    for index, (custom_parser_func, param) in enumerate(zip(parse_args, args)):
+    for index, (custom_parser_func, value) in enumerate(zip(parse_args, args)):
         # Only (validate) if the func is provided:
         if custom_parser_func is not IGNORE:
             try:
-                custom_parser_func(param, index=index)
+                custom_parser_func(
+                    value=value,
+                    index=index,
+                )
             except Exception as exc:
                 func_name = get_func_name(custom_parser_func)
                 errors.append(
                     PositionalError(
                         exc,
                         index,
-                        param,
+                        value,
                         func_name,
                         custom_parser_func,
                     )
@@ -40,15 +43,19 @@ def parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast):
     for name, custom_parser_func in parse_kwargs.items():
         # Only (validate) if the func is provided:
         if custom_parser_func is not IGNORE:
-            param = kwargs.get(name)
+            value = kwargs.get(name)
             try:
-                custom_parser_func(name, param, name in kwargs)
+                custom_parser_func(
+                    value=value,
+                    name=name,
+                    present=name in kwargs,
+                )
             except Exception as exc:
                 func_name = get_func_name(custom_parser_func)
                 errors.append(
                     KeywordError(
                         exc,
-                        param,
+                        value,
                         func_name,
                         custom_parser_func,
                     )

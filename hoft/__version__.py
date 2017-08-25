@@ -4,7 +4,7 @@
 
 __title__ = 'hoft'
 __description__ = 'Higher Order Func Tools.'
-__url__ = 'https://bitbucket.com/sys-git/hoft'
+__url__ = 'https://github.com/sys-git/hoft'
 __version__ = '0.1'
 __author__ = 'Francis Horsman'
 __author_email__ = 'francis.horsman@gmail.com'

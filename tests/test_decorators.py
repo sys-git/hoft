@@ -52,8 +52,8 @@ class Test(unittest2.TestCase):
         kwargs = {name_bar: value_bar, name_baz: value_baz}
 
         self.assertRaises(_SuccessError, decorated_func_a, *args, **kwargs)
-        func_a.assert_called_once_with(value_foo, index=0)
-        func_b.assert_called_once_with(name_bar, value_bar, True)
+        func_a.assert_called_once_with(value=value_foo, index=0)
+        func_b.assert_called_once_with(name=name_bar, value=value_bar, present=True)
         on_error.assert_not_called()
 
     def test_simple_on_error_no_handler_fail_fast(self):
@@ -87,7 +87,7 @@ class Test(unittest2.TestCase):
         try:
             decorated_func_a(*args, **kwargs)
         except _FailureError as exc:
-            _func_a.assert_called_once_with(value_foo, index=0)
+            _func_a.assert_called_once_with(value=value_foo, index=0)
             _func_b.assert_not_called()
             self.assertEqual(len(exc._errors_), 1)
 
@@ -95,7 +95,7 @@ class Test(unittest2.TestCase):
             self.assertIsInstance(error, PositionalError)
             self.assertIs(error.error, exc)
             self.assertEqual(error.index, 0)
-            self.assertEqual(error.param, value_foo)
+            self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
             self.assertEqual(error.func, func_a)
         else:
@@ -132,20 +132,20 @@ class Test(unittest2.TestCase):
         try:
             decorated_func_a(*args, **kwargs)
         except _FailureError as exc:
-            _func_a.assert_called_once_with(value_foo, index=0)
-            _func_b.assert_called_once_with(name_bar, value_bar, True)
+            _func_a.assert_called_once_with(value=value_foo, index=0)
+            _func_b.assert_called_once_with(name=name_bar, value=value_bar, present=True)
             self.assertEqual(len(exc._errors_), 2)
 
             error = exc._errors_[0]
             self.assertIsInstance(error, PositionalError)
             self.assertEqual(error.index, 0)
-            self.assertEqual(error.param, value_foo)
+            self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
             self.assertEqual(error.func, func_a)
 
             error = exc._errors_[1]
             self.assertIsInstance(error, KeywordError)
-            self.assertEqual(error.param, value_bar)
+            self.assertEqual(error.value, value_bar)
             self.assertEqual(error.func_name, 'func_b')
             self.assertEqual(error.func, func_b)
         else:
@@ -187,7 +187,7 @@ class Test(unittest2.TestCase):
         try:
             decorated_func_a(*args, **kwargs)
         except _OnError as exc:
-            _func_a.assert_called_once_with(value_foo, index=0)
+            _func_a.assert_called_once_with(value=value_foo, index=0)
             _func_b.assert_not_called()
             _func_oe.assert_called_once()
 
@@ -204,7 +204,7 @@ class Test(unittest2.TestCase):
             self.assertIsInstance(error, PositionalError)
             self.assertIsInstance(error.error, _FailureError)
             self.assertEqual(error.index, 0)
-            self.assertEqual(error.param, value_foo)
+            self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
             self.assertEqual(error.func, func_a)
         else:
@@ -243,8 +243,8 @@ class Test(unittest2.TestCase):
         kwargs = {name_bar: value_bar, name_baz: value_baz}
 
         self.assertRaises(_SuccessError, decorated_func_a, *args, **kwargs)
-        _func_a.assert_called_once_with(value_foo, index=0)
-        _func_b.assert_called_once_with(name_bar, value_bar, True)
+        _func_a.assert_called_once_with(value=value_foo, index=0)
+        _func_b.assert_called_once_with(name=name_bar, value=value_bar, present=True)
         self.assertEqual(_func_oe.call_count, 2)
 
         call_args_list = _func_oe.call_args_list
@@ -260,14 +260,14 @@ class Test(unittest2.TestCase):
             self.assertIsInstance(error, PositionalError)
             self.assertIsInstance(error.error, _FailureError)
             self.assertEqual(error.index, 0)
-            self.assertEqual(error.param, value_foo)
+            self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
             self.assertEqual(error.func, func_a)
 
             error = errors[1]
             self.assertIsInstance(error, KeywordError)
             self.assertIsInstance(error.error, _FailureError1)
-            self.assertEqual(error.param, value_bar)
+            self.assertEqual(error.value, value_bar)
             self.assertEqual(error.func_name, 'func_b')
             self.assertEqual(error.func, func_b)
 
@@ -307,8 +307,8 @@ class Test(unittest2.TestCase):
         try:
             decorated_func_a(*args, **kwargs)
         except _OnError:
-            _func_a.assert_called_once_with(value_foo, index=0)
-            _func_b.assert_called_once_with(name_bar, value_bar, True)
+            _func_a.assert_called_once_with(value=value_foo, index=0)
+            _func_b.assert_called_once_with(name=name_bar, value=value_bar, present=True)
             _func_oe.assert_called_once()
 
             call_args_list = _func_oe.call_args_list
@@ -324,14 +324,14 @@ class Test(unittest2.TestCase):
             self.assertIsInstance(error, PositionalError)
             self.assertIsInstance(error.error, _FailureError)
             self.assertEqual(error.index, 0)
-            self.assertEqual(error.param, value_foo)
+            self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
             self.assertEqual(error.func, func_a)
 
             error = errors[1]
             self.assertIsInstance(error, KeywordError)
             self.assertIsInstance(error.error, _FailureError1)
-            self.assertEqual(error.param, value_bar)
+            self.assertEqual(error.value, value_bar)
             self.assertEqual(error.func_name, 'func_b')
             self.assertEqual(error.func, func_b)
         else:
@@ -370,8 +370,8 @@ class Test(unittest2.TestCase):
         kwargs = {name_bar: value_bar, name_baz: value_baz}
 
         self.assertRaises(_SuccessError, decorated_func_a, *args, **kwargs)
-        _func_a.assert_called_once_with(value_foo, index=0)
-        _func_b.assert_called_once_with(name_bar, value_bar, True)
+        _func_a.assert_called_once_with(value=value_foo, index=0)
+        _func_b.assert_called_once_with(name=name_bar, value=value_bar, present=True)
         self.assertEqual(_func_oe.call_count, 1)
 
         call_args_list = _func_oe.call_args_list
@@ -387,14 +387,14 @@ class Test(unittest2.TestCase):
         self.assertIsInstance(error, PositionalError)
         self.assertIsInstance(error.error, _FailureError)
         self.assertEqual(error.index, 0)
-        self.assertEqual(error.param, value_foo)
+        self.assertEqual(error.value, value_foo)
         self.assertEqual(error.func_name, 'func_a')
         self.assertEqual(error.func, func_a)
 
         error = errors[1]
         self.assertIsInstance(error, KeywordError)
         self.assertIsInstance(error.error, _FailureError1)
-        self.assertEqual(error.param, value_bar)
+        self.assertEqual(error.value, value_bar)
         self.assertEqual(error.func_name, 'func_b')
         self.assertEqual(error.func, func_b)
 

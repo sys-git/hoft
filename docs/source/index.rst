@@ -12,9 +12,45 @@ Initially developed for parameter validation but now generic.
    :maxdepth: 2
    :caption: Contents:
 
-Indices and tables
-==================
+Currently a single decorator that can be used to programmatically analyse a function's input
+positional and keyword arguments.
+
+The params are then passed directly to the decorated function and any exceptions are propagated
+back to the caller.
+
+Simple example
+--------------
+
+.. code-block:: python
+
+    from hoft import analyse_in, IGNORE
+
+    def func_a(value, index):
+        # do my thing and potentially raise an exception here
+        ...
+        raise MyError(value)
+
+    ...
+
+    @analyse_in(func_a, func_b, c=IGNORE, d=func_c)
+    def my_function(a, b, c=None, d=None):
+        ...
+
+To install
+----------
+
+.. code-block:: bash
+
+    $ pip install hoft
+
+Contributions
+-------------
+Fork me and create a pull request! All contributions or suggestions welcome :)
+
+Indices, tables and examples
+============================
 
 * :ref:`genindex`
 * :ref:`modindex`
+* :ref:`examples`
 * :ref:`search`
