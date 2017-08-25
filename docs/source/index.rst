@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-HOFT - Higher Order Func Tools
-==============================
+HOFT - Higher Order Func Tools for Python2.7
+============================================
 
 .. image:: https://coveralls.io/repos/github/sys-git/hoft/badge.svg
     :target: https://coveralls.io/github/sys-git/hoft
