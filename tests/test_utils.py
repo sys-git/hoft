@@ -5,15 +5,13 @@
 # @version 0.1
 # @copyright (c) 2017-present Francis Horsman.
 
-# from nose_parameterized import parameterized
 import functools
-
-import unittest2
+import unittest
 
 from hoft.core.utils import get_func_name
 
 
-class Test(unittest2.TestCase):
+class Test(unittest.TestCase):
     def test_get_func_name_simple(self):
         def my_func():
             pass
@@ -58,4 +56,4 @@ class Test(unittest2.TestCase):
 
 
 if __name__ == '__main__':
-    unittest2.main()
+    unittest.main()

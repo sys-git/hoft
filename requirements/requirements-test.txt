@@ -16,4 +16,3 @@ vulture
 radon
 pycallgraph
 sphinx==1.6.3
-unittest2

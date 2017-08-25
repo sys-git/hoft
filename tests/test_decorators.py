@@ -5,7 +5,8 @@
 # @version 0.1
 # @copyright (c) 2017-present Francis Horsman.
 
-import unittest2
+import unittest
+
 from mock import Mock
 
 from hoft import IGNORE, KeywordError, PositionalError, analyse_in
@@ -27,7 +28,7 @@ class _OnError(Exception):
     pass
 
 
-class Test(unittest2.TestCase):
+class Test(unittest.TestCase):
     def test_simple_no_errors(self):
         func_a = Mock()
         func_b = Mock()
@@ -400,4 +401,4 @@ class Test(unittest2.TestCase):
 
 
 if __name__ == '__main__':
-    unittest2.main()
+    unittest.main()
