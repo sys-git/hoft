@@ -6,6 +6,10 @@
 HOFT - Higher Order Func Tools for Python2.7
 ============================================
 
+.. image:: https://img.shields.io/badge/Author:%20francis%20horsman-Available-brightgreen.svg?style=plastic
+    :target: https://www.linkedin.com/in/francishorsman
+.. image:: https://travis-ci.org/sys-git/hoft.svg?branch=master
+    :target: https://travis-ci.org/sys-git/hoft
 .. image:: https://coveralls.io/repos/github/sys-git/hoft/badge.svg
     :target: https://coveralls.io/github/sys-git/hoft
 .. image:: https://readthedocs.org/projects/hoft/badge/?version=latest
@@ -13,6 +17,14 @@ HOFT - Higher Order Func Tools for Python2.7
     :alt: Documentation Status
 .. image:: https://badge.fury.io/py/hoft.svg
     :target: https://badge.fury.io/py/hoft
+.. image:: https://img.shields.io/pypi/l/hoft.svg
+    :target: https://img.shields.io/pypi/l/hoft.svg
+.. image:: https://img.shields.io/pypi/wheel/hoft.svg
+    :target: https://img.shields.io/pypi/wheel/hoft.svg
+.. image:: https://img.shields.io/pypi/pyversions/hoft.svg
+    :target: https://img.shields.io/pypi/pyversions/hoft.svg
+.. image:: https://img.shields.io/pypi/status/hoft.svg
+    :target: https://img.shields.io/pypi/status/hoft.svg
 
 Initially developed for parameter validation but now generic.
 
