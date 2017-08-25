@@ -8,7 +8,9 @@ HOFT - Higher Order Func Tools
 
 .. image:: https://coveralls.io/repos/github/sys-git/hoft/badge.svg
     :target: https://coveralls.io/github/sys-git/hoft
-
+.. image:: https://readthedocs.org/projects/hoft/badge/?version=latest
+    :target: http://hoft.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 Initially developed for parameter validation but now generic.
 
 .. toctree::
