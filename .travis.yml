@@ -17,7 +17,7 @@ install:
 script:
   - "flake8 hoft setup.py"
   - "pep8 hoft setup.py"
-  - "pylint -E hoft setup.py"
+  - "pylint --rcfile=.pylintrc hoft setup.py"
   - "nosetests --with-coverage --cover-erase --cover-package=hoft --cover-html"
 
 after_success:
