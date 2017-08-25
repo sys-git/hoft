@@ -2,6 +2,7 @@
 
 <h2>Higher Order Func Tools</h2>
 
+[![Coverage Status](https://coveralls.io/repos/github/sys-git/hoft/badge.svg)](https://coveralls.io/github/sys-git/hoft)
 
 Currently a single decorator that can be used to programmatically analyse a function's input
 positional and keyword arguments.

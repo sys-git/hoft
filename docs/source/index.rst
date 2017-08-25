@@ -6,6 +6,9 @@
 HOFT - Higher Order Func Tools
 ==============================
 
+.. image:: https://coveralls.io/repos/github/sys-git/hoft/badge.svg
+    :target: https://coveralls.io/github/sys-git/hoft
+
 Initially developed for parameter validation but now generic.
 
 .. toctree::
