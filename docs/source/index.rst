@@ -11,6 +11,9 @@ HOFT - Higher Order Func Tools for Python2.7
 .. image:: https://readthedocs.org/projects/hoft/badge/?version=latest
     :target: http://hoft.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
+.. image:: https://badge.fury.io/py/hoft.svg
+    :target: https://badge.fury.io/py/hoft
+
 Initially developed for parameter validation but now generic.
 
 .. toctree::
