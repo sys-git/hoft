@@ -14,7 +14,7 @@ install:
 # command to run tests
 script:
   - "flake8 hoft setup.py"
-  - "nosetests --with-coverage --cover-erase --cover-package=hoft --cover-html --cover-branches --exclude-dir=hoft/examples"
+  - "nosetests --with-coverage --cover-erase --cover-package=hoft --cover-html --cover-branches"
 
 after_success:
   - "coveralls"
