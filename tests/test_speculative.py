@@ -77,22 +77,22 @@ class AnalyseSigNoDefaultTestCase(unittest.TestCase):
     def test_analyse_sig_strict_without_on_error_handler_fail_slow_no_errors(self):
         def f_a(name, index, value):
             self._f_a(name, index, value)
-            print('f_a: name: {0}, index:{1}, value: {2}'.format(name, index, value))
+            # print('f_a: name: {0}, index:{1}, value: {2}'.format(name, index, value))
 
         def f_c(name, index, value):
             self._f_c(name, index, value)
-            print('f_c: name: {0}, index:{1}, value: {2}'.format(name, index, value))
+            # print('f_c: name: {0}, index:{1}, value: {2}'.format(name, index, value))
 
         def f_f(name, index, called_with_value, default_value):
             self._f_f(name, index, called_with_value, default_value)
-            print(
-                'f_c: name: {0}, index:{1}, called_with_value: {2}, default_value: {3}'.format(
-                    name, index, called_with_value, default_value))
+            # print(
+            #     'f_c: name: {0}, index:{1}, called_with_value: {2}, default_value: {3}'.format(
+            #         name, index, called_with_value, default_value))
 
         def f_on_error(exc, errors):
             self._f_on_error(exc, errors)
-            print('f_on_error exc:    {0}'.format(str(exc)))
-            print('f_on_error errors: {0}'.format(str(errors)))
+            # print('f_on_error exc:    {0}'.format(str(exc)))
+            # print('f_on_error errors: {0}'.format(str(errors)))
 
         @analyse_sig(
             f_a, IGNORE, f_c,
@@ -111,7 +111,6 @@ class AnalyseSigNoDefaultTestCase(unittest.TestCase):
             errors = e._errors_
             self.assertIsInstance(errors, list)
             self.assertEqual(len(errors), 1)
-            print('errors: {0}'.format(errors))
             error = errors[0]
             self.assertIsInstance(error, NotAnalysedError)
             self.assertIsInstance(error.error, ArgsNotAnalysedError)
@@ -139,25 +138,25 @@ class AnalyseSigNoDefaultTestCase(unittest.TestCase):
     def test_analyse_sig_strict_without_on_error_handler_fail_slow(self):
         def f_a(name, index, value):
             self._f_a(name, index, value)
-            print('f_a: name: {0}, index:{1}, value: {2}'.format(name, index, value))
+            # print('f_a: name: {0}, index:{1}, value: {2}'.format(name, index, value))
             raise _Error('a')
 
         def f_c(name, index, value):
             self._f_c(name, index, value)
-            print('f_c: name: {0}, index:{1}, value: {2}'.format(name, index, value))
+            # print('f_c: name: {0}, index:{1}, value: {2}'.format(name, index, value))
             raise _Error('c')
 
         def f_f(name, index, called_with_value, default_value):
             self._f_f(name, index, called_with_value, default_value)
-            print(
-                'f_f: name: {0}, index:{1}, called_with_value: {2}, default_value: {3}'.format(
-                    name, index, called_with_value, default_value))
+            # print(
+            #     'f_f: name: {0}, index:{1}, called_with_value: {2}, default_value: {3}'.format(
+            #         name, index, called_with_value, default_value))
             raise _Error('f')
 
         def f_on_error(exc, errors):
             self._f_on_error(exc, errors)
-            print('f_on_error exc:    {0}'.format(str(exc)))
-            print('f_on_error errors: {0}'.format(str(errors)))
+            # print('f_on_error exc:    {0}'.format(str(exc)))
+            # print('f_on_error errors: {0}'.format(str(errors)))
 
         @analyse_sig(
             f_a, IGNORE, f_c,
@@ -186,7 +185,6 @@ class AnalyseSigNoDefaultTestCase(unittest.TestCase):
             self.assertIsInstance(error.error, _Error)
             self.assertEqual(error.error.message, 'a')
             self.assertEqual(len(error.error._errors_), 4)
-            print('errors: {0}'.format(error.error._errors_))
 
             error = errors[1]
             self.assertIsInstance(error, PositionalError)
@@ -958,7 +956,7 @@ class AnalyseSigWithDefaultTestCase(unittest.TestCase):
         else:
             assert False
 
-    # FIXME: BELOW HERE.
+    # FIXME: ENHANCE TESTS BELOW HERE.
 
     def test_analyse_sig_strict_with_on_error_handler_fail_slow(self):
         def f_all(name, value, arg_spec):
@@ -1128,24 +1126,24 @@ class AnalyseSigWithDefaultTestCase(unittest.TestCase):
     def test_analyse_sig_not_strict_without_on_error_handler_fail_slow(self):
         def f_all(name, value, arg_spec):
             self._f_all(name, value, arg_spec)
-            # print('f_all: name: {0}, index:{1}, value: {2}'.format(name, value, arg_spec))
+            print('f_all: name: {0}, index:{1}, value: {2}'.format(name, value, arg_spec))
             raise _Error('all')
 
         def f_a(name, index, value):
             self._f_a(name, index, value)
-            # print('f_a: name: {0}, index:{1}, value: {2}'.format(name, index, value))
+            print('f_a: name: {0}, index:{1}, value: {2}'.format(name, index, value))
             raise _Error('a')
 
         def f_c(name, index, value):
             self._f_c(name, index, value)
-            # print('f_c: name: {0}, index:{1}, value: {2}'.format(name, index, value))
+            print('f_c: name: {0}, index:{1}, value: {2}'.format(name, index, value))
             raise _Error('c')
 
         def f_f(name, index, called_with_value, default_value):
             self._f_f(name, index, called_with_value, default_value)
-            # print(
-            #     'f_c: name: {0}, index:{1}, called_with_value: {2}, default_value: {3}'.format(
-            #         name, index, called_with_value, default_value))
+            print(
+                'f_f: name: {0}, index:{1}, called_with_value: {2}, default_value: {3}'.format(
+                    name, index, called_with_value, default_value))
             raise _Error('f')
 
         @analyse_sig(

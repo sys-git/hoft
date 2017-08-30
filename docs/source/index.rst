@@ -1,7 +1,4 @@
-.. hoft documentation master file, created by
-   sphinx-quickstart on Fri Aug 11 10:54:13 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. hoft
 
 HOFT - Higher Order Func Tools for Python2.7
 ============================================
@@ -26,35 +23,71 @@ HOFT - Higher Order Func Tools for Python2.7
 .. image:: https://img.shields.io/pypi/status/hoft.svg
     :target: https://img.shields.io/pypi/status/hoft.svg
 
-Initially developed for parameter validation but now generic.
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-Currently a single decorator that can be used to programmatically analyse a function's input
-positional and keyword arguments.
+Decorators that can be used to analyse a function's positional, keyword and default arguments.
 
-The params are then passed directly to the decorated function and any exceptions are propagated
-back to the caller.
+HOFT uses **getargspec** and **getcallargs** (from the `inspect <https://docs.python.org/2/library/inspect.html>`_ module) under the hood.
+
+The params are then passed directly to the decorated function and any exceptions are propagated back to the caller.
+
+Use case
+--------
+
+1. Used in conjunction with a parameter checking and validation library to perform parameter validation prior to function execution.
+
+.. code-block:: python
+
+    from hoft import analyse_sig, IGNORE
+    from validation_lib import validate_int, validate_string
+    ...
+
+    @analyse_sig(validate_int(min_value=-100, max_value=100), IGNORE, c=IGNORE, d=validate_string(max_length=2))
+    def my_function(a, b, c=None, d=None, e='world'):
+        ...
+
+    >>> my_function(-256, 'x', 'y', 'abcd')
+    Traceback (most recent call last):
+    ...
+    validation_lib_error: .....
 
 Simple example
 --------------
 
 .. code-block:: python
 
-    from hoft import analyse_in, IGNORE
+    from hoft import analyse_sig, IGNORE
 
-    def func_a(value, index):
+    def func(arg_name, arg_index, arg_value, default_value=None):
         # do my thing and potentially raise an exception here
+        if arg_name == 'a':
+            assert arg_index==0
+            assert arg_value==5
+        elif arg_name == 'd':
+            assert arg_index==2
+            assert called_with_value==7
+            assert default_value==None
+
         ...
         raise MyError(value)
 
     ...
 
-    @analyse_in(func_a, func_b, c=IGNORE, d=func_c)
-    def my_function(a, b, c=None, d=None):
+    @analyse_sig(func, IGNORE, c=IGNORE, d=func)
+    def my_function(a, b, c=None, d=None, e='world'):
         ...
+
+    # call the decorated method, and the arguments will be checked prior to my_function execution:
+    my_function(5, 6, c=7, d=8)
+
+    # my_function is called as expected and receives: a=5, b=6, c=7, d=8, e='world'
+
+Helpful utilities
+-----------------
+
+:ref:`sigs` contains functions to extract a useful signature and signature components from an argspec.
 
 To install
 ----------
@@ -65,12 +98,15 @@ To install
 
 Contributions
 -------------
-Fork me and create a pull request! All contributions or suggestions welcome :)
+Fork me and create a pull request!
 
-Indices, tables and examples
-============================
+All contributions or suggestions welcome :)
+
+Coding guidelines in the next version.
+
+Indices and tables
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`examples`
 * :ref:`search`

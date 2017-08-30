@@ -132,6 +132,19 @@ class ArgSpecTestCase(unittest.TestCase):
         self.assertEqual(get_default_value('a', argspec), 1)
         self.assertRaises(NoDefaultError, get_default_value, 'b', argspec)
 
+    def test_args_keywords_and_kwargs(self):
+        def voo(a, b=2, **c):
+            pass
+
+        argspec = getargspec(voo)
+        e_sig = Signature(['a'], None, {'b': 2}, 'c')
+        sig = get_signature(argspec)
+
+        self.assertEqual(sig, e_sig)
+        self.assertRaises(NoDefaultError, get_default_value, 'a', argspec)
+        self.assertEqual(get_default_value('b', argspec), 2)
+        self.assertRaises(NoDefaultError, get_default_value, 'c', argspec)
+
 
 if __name__ == '__main__':
     unittest.main()

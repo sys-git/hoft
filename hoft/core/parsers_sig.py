@@ -30,9 +30,9 @@ def parse_sig_positional_inputs(
 
             try:
                 custom_parser_func(
-                    name=name,
-                    index=index,
-                    value=value,
+                    name,
+                    index,
+                    value,
                 )
             except Exception as exc:
                 func_name = get_func_name(custom_parser_func)
@@ -57,7 +57,7 @@ def parse_sig_positional_inputs(
 def parse_sig_keyword_inputs(
     parse_kwargs, kwargs, argspec, callargs, errors, handled, on_error, fail_fast,
 ):
-    for name, custom_parser_func in parse_kwargs.items():
+    for name, custom_parser_func in sorted(parse_kwargs.items()):
         if name in handled:
             continue
         handled.update([name])
@@ -70,9 +70,9 @@ def parse_sig_keyword_inputs(
 
             try:
                 custom_parser_func(
-                    name=name,
-                    index=index,
-                    called_with_value=called_with_value,
+                    name,
+                    index,
+                    called_with_value,
                     default_value=default_value,
                 )
             except Exception as exc:
@@ -100,7 +100,7 @@ def parse_sig_remaining_inputs(
 ):
     sig = get_signature(argspec)
 
-    for name, value in callargs.items():
+    for name, value in sorted(callargs.items()):
         if name in handled:
             continue
         handled.update([name])
@@ -187,7 +187,7 @@ def parse_all_sig_args(
         )
 
     if strict:
-        names = list(arg_names - handled)
+        names = sorted(list(arg_names - handled))
 
         if names:
             try:

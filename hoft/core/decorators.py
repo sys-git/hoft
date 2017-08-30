@@ -20,35 +20,46 @@ def analyse_in(*parse_args, **parse_kwargs):
     Decorator for methods (to analyse) the args and kwargs of the decorated callable.
     This method does not modify the args or kwargs in any way.
 
-    :param parse_args: A list of callables which accept two values only:
-    These callables will be passed the target function's argument at the same position as - the
-    callable is in the decorator's arguments list and the index of the argument.
-    If callable==IGNORE, then the decorated function's arg is not parsed.
-    :param parse_kwargs: A dictionary of name, callables. The name represents the target
-    function's kwarg that will be passed to the callable. The callable receives the name,
-    value and a boolean representing if the name is present in the kwargs:
-    ie: `def my_func(name, value, name_in_decorated_funcs_passed_kwargs)`.
-    :param bool parse_kwargs['_fail_fast_']: True: Fail on the first exception raised by any
-    supplied callable.
-    :param bool parse_kwargs['_on_error_']: Callable or type to be called when an exception is found
-    in a supplied callable, if the type is an exception or subclass-of, it will be raised (the
-    exception constructor should take the same signature as my_func below):
-    ie: `def my_func(exc, list_of_excs)`.
-    If the type is not an exception or subclass-of it will be called, it is up to this callable to
-    raise an exception if required.
-    :returns: Decorated function.
-    :note: Any exception raised by a supplied callable will have an additional field: `_errors_`.
-    This is always a list of one or all of the errors encountered during the supplied callables (
-    depending on the value of the `_fail_fast_` kwargs.
+    Deprecated. Will be removed in a future version, use `analyse_sig` instead.
+
+    :param parse_args:
+        A list of callables which accept two values only:
+        These callables will be passed the target function's argument at the same position as - the
+        callable is in the decorator's arguments list and the index of the argument.
+        If callable==`IGNORE`, then the decorated function's arg is not parsed.
+
+    :param parse_kwargs:
+        A dictionary of name, callables. The name represents the target function's kwarg that
+        will be passed to the callable. The callable receives the name,
+        value and a boolean representing if the name is present in the kwargs:
+        ie: `def my_func(name, value, name_in_decorated_funcs_passed_kwargs)`.
+
+    :param bool parse_kwargs['_fail_fast_']:
+        True: Fail on the first exception raised by any supplied callable.
+
+    :param bool parse_kwargs['_on_error_']:
+        Callable or type to be called when an exception is found
+        in a supplied callable, if the type is an exception or subclass-of, it will be raised (the
+        exception constructor should take the same signature as my_func below):
+        ie: `def my_func(exc, list_of_excs)`.
+        If the type is not an exception or subclass-of it will be called, it is up to this
+        callable to raise an exception if required.
+
+    :returns:
+        Decorated function.
+    :note:
+        Any exception raised by a supplied callable will have an additional field: `_errors_`.
+        This is always a list of one or all of the errors encountered during the supplied
+        callables (depending on the value of the `_fail_fast_` kwargs).
 
     Example:
-    @hoft.analyse_in(
+
+    >>> @hoft.analyse_in(
         _a_func(z=1), None, bar=_b_func(x=1, y=2), baz=_validate_baz(), x=None,
         _fail_fast_=True, _on_error_=my_func,
     )
     def _validate_something_decorated(foo, ignored, bar=hoft.IGNORE, baz=None, x=None):
         ...
-
     """
 
     def decorator(func):
@@ -93,32 +104,47 @@ def analyse_sig(*parse_args, **parse_kwargs):
     Decorator for methods (to analyse) the args and kwargs of the decorated callable.
     This method does not modify the args or kwargs in any way.
 
-    :param parse_args: A list of callables which accept two values only:
-    These callables will be passed the target function's argument at the same position as - the
-    callable is in the decorator's arguments list and the index of the argument.
-    If callable==IGNORE, then the decorated function's arg is not parsed.
-    :param parse_kwargs: A dictionary of name, callables. The name represents the target
-    function's kwarg that will be passed to the callable. The callable receives the name,
-    value and a boolean representing if the name is present in the kwargs:
-    ie: `def my_func(name, value, name_in_decorated_funcs_passed_kwargs)`.
-    :param bool parse_kwargs['_fail_fast_']: True: Fail on the first exception raised by any
-    supplied callable.
-    :param bool parse_kwargs['_on_error_']: Callable or type to be called when an exception is found
-    in a supplied callable, if the type is an exception or subclass-of, it will be raised (the
-    exception constructor should take the same signature as my_func below):
-    ie: `def my_func(exc, list_of_excs)`.
-    If the type is not an exception or subclass-of it will be called, it is up to this callable to
-    raise an exception if required.
-    :param bool parse_kwargs['_strict_']: True=Error if all params are not analysed.
-    :param callable parse_kwargs['_default_']: Default handler for all not previously analysed
-    arguments.
-    :returns: Decorated function.
-    :note: Any exception raised by a supplied callable will have an additional field: `_errors_`.
-    This is always a list of one or all of the errors encountered during the supplied callables (
-    depending on the value of the `_fail_fast_` kwargs.
+    Preferred method over `analyse_in`.
+
+    :param parse_args:
+        A list of callables which accept two values only:
+        These callables will be passed the target function's argument at the same position as - the
+        callable is in the decorator's arguments list and the index of the argument.
+        If callable==`IGNORE`, then the decorated function's arg is not parsed.
+
+    :param parse_kwargs:
+        A dictionary of name, callables. The name represents the target function's kwarg that
+        will be passed to the callable. The callable receives the name,
+        value and a boolean representing if the name is present in the kwargs:
+        ie: `def my_func(name, value, name_in_decorated_funcs_passed_kwargs)`.
+
+    :param bool parse_kwargs['_fail_fast_']:
+        True: Fail on the first exception raised by any supplied callable.
+
+    :param bool parse_kwargs['_on_error_']:
+        Callable or type to be called when an exception is found
+        in a supplied callable, if the type is an exception or subclass-of, it will be raised (the
+        exception constructor should take the same signature as my_func below):
+        ie: `def my_func(exc, list_of_excs)`.
+        If the type is not an exception or subclass-of it will be called, it is up to this
+        callable to raise an exception if required.
+
+    :param bool parse_kwargs['_strict_']:
+        True=Error if all params are not analysed.
+
+    :param callable parse_kwargs['_default_']:
+        Default handler for all not previously analysed arguments.
+
+    :returns:
+        Decorated function.
+    :note:
+        Any exception raised by a supplied callable will have an additional field: `_errors_`.
+        This is always a list of one or all of the errors encountered during the supplied
+        callables (depending on the value of the `_fail_fast_` kwargs).
 
     Example:
-    @hoft.analyse_in(
+
+    >>> @hoft.analyse_sig(
         _a_func(z=1), None, bar=_b_func(x=1, y=2), baz=_validate_baz(), x=None,
         _fail_fast_=True, _on_error_=my_func, _strict_=False, _default_=_default_func,
     )
@@ -126,6 +152,7 @@ def analyse_sig(*parse_args, **parse_kwargs):
         ...
 
     """
+
     def decorator(func):
         @six.wraps(func)
         def wrapper(*args, **kwargs):
