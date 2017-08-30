@@ -26,6 +26,7 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
 <h3>Use case</h3>
 
 1. Used in conjunction with a parameter checking and validation library to perform parameter validation prior to function execution.
+
 ```
     from hoft import analyse_sig, IGNORE
     from validation_lib import validate_int, validate_string
@@ -42,6 +43,7 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
 ```
 
 <h3>Simple example</h3>
+
 ```
     from hoft import analyse_sig, IGNORE
     
@@ -71,6 +73,7 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
 
     # my_function is called as expected and receives: a=5, b=6, c=7, d=8, e='world'
 ```
+
 <h3>To install</h3>
 
 .. code-block:: bash
@@ -79,6 +82,7 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
 
 
 <h3>Build documentation</h3>
+
 ```
     $ make sphinx-html
 ```
