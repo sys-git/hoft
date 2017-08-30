@@ -76,10 +76,9 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
 
 <h3>To install</h3>
 
-.. code-block:: bash
-
+```
     $ pip install hoft
-
+```
 
 <h3>Build documentation</h3>
 
