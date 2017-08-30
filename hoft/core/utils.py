@@ -8,14 +8,44 @@
 
 from collections import namedtuple
 
-PositionalError = namedtuple('PositionalError', ('error', 'index', 'value', 'func_name', 'func'))
+PositionalError = namedtuple('PositionalError',
+    ('error', 'name', 'index', 'value', 'func_name', 'func'))
 
-KeywordError = namedtuple('KeywordError', ('error', 'value', 'func_name', 'func'))
+KeywordError = namedtuple('KeywordError',
+    ('error', 'name', 'value', 'default_value', 'func_name', 'func'))
+
+NotAnalysedError = namedtuple('NotAnalysedError',
+    ('error', 'name', 'argspec', 'callargs'))
+
+Signature = namedtuple('Signature',
+    ('args', 'vaargs', 'kwargs', 'keywords'))
 
 IGNORE = None
+NOVALUE = object()
 
 __all__ = [
+    'IGNORE',
+    'NOVALUE',
+    'ArgsNotAnalysedError',
+    'NoDefaultError',
+    'Signature',
 ]
+
+
+class ArgsNotAnalysedError(Exception):
+    def __init__(self, names):
+        super(ArgsNotAnalysedError, self).__init__(
+            'ArgsNotAnalysedError: {names}'.format(names=names)
+        )
+        self.names = names
+
+
+class NoDefaultError(Exception):
+    def __init__(self, name, argspec):
+        super(NoDefaultError, self).__init__(
+            'no default value for positional: {k}'.format(k=name))
+        self.name = name
+        self.argspec = argspec
 
 
 def get_func_name(func):

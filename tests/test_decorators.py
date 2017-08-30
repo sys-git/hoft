@@ -34,6 +34,7 @@ class Test(unittest.TestCase):
         func_b = Mock()
         on_error = Mock()
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_bar = '.bar'
@@ -61,6 +62,7 @@ class Test(unittest.TestCase):
         _func_a = Mock(side_effect=_FailureError())
         _func_b = Mock(side_effect=_FailureError1())
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_ignored = '.ignored'
@@ -95,6 +97,7 @@ class Test(unittest.TestCase):
             error = exc._errors_[0]
             self.assertIsInstance(error, PositionalError)
             self.assertIs(error.error, exc)
+            self.assertEqual(error.name, name_foo)
             self.assertEqual(error.index, 0)
             self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
@@ -106,6 +109,7 @@ class Test(unittest.TestCase):
         _func_a = Mock(side_effect=_FailureError())
         _func_b = Mock(side_effect=_FailureError1())
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_ignored = '.ignored'
@@ -139,6 +143,7 @@ class Test(unittest.TestCase):
 
             error = exc._errors_[0]
             self.assertIsInstance(error, PositionalError)
+            self.assertEqual(error.name, name_foo)
             self.assertEqual(error.index, 0)
             self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
@@ -146,7 +151,9 @@ class Test(unittest.TestCase):
 
             error = exc._errors_[1]
             self.assertIsInstance(error, KeywordError)
+            self.assertEqual(error.name, name_bar)
             self.assertEqual(error.value, value_bar)
+            self.assertEqual(error.default_value, None)
             self.assertEqual(error.func_name, 'func_b')
             self.assertEqual(error.func, func_b)
         else:
@@ -158,6 +165,7 @@ class Test(unittest.TestCase):
         oe = _OnError()
         _func_oe = Mock(side_effect=oe)
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_ignored = '.ignored'
@@ -187,7 +195,7 @@ class Test(unittest.TestCase):
 
         try:
             decorated_func_a(*args, **kwargs)
-        except _OnError as exc:
+        except _OnError:
             _func_a.assert_called_once_with(value=value_foo, index=0)
             _func_b.assert_not_called()
             _func_oe.assert_called_once()
@@ -204,6 +212,7 @@ class Test(unittest.TestCase):
             error = errors[0]
             self.assertIsInstance(error, PositionalError)
             self.assertIsInstance(error.error, _FailureError)
+            self.assertEqual(error.name, name_foo)
             self.assertEqual(error.index, 0)
             self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
@@ -216,6 +225,7 @@ class Test(unittest.TestCase):
         _func_b = Mock(side_effect=_FailureError1())
         _func_oe = Mock(return_value='ignored return value')
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_ignored = '.ignored'
@@ -260,6 +270,7 @@ class Test(unittest.TestCase):
             error = errors[0]
             self.assertIsInstance(error, PositionalError)
             self.assertIsInstance(error.error, _FailureError)
+            self.assertEqual(error.name, name_foo)
             self.assertEqual(error.index, 0)
             self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
@@ -268,7 +279,9 @@ class Test(unittest.TestCase):
             error = errors[1]
             self.assertIsInstance(error, KeywordError)
             self.assertIsInstance(error.error, _FailureError1)
+            self.assertEqual(error.name, name_bar)
             self.assertEqual(error.value, value_bar)
+            self.assertEqual(error.default_value, None)
             self.assertEqual(error.func_name, 'func_b')
             self.assertEqual(error.func, func_b)
 
@@ -278,6 +291,7 @@ class Test(unittest.TestCase):
         oe = _OnError()
         _func_oe = Mock(side_effect=oe)
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_ignored = '.ignored'
@@ -324,6 +338,7 @@ class Test(unittest.TestCase):
             error = errors[0]
             self.assertIsInstance(error, PositionalError)
             self.assertIsInstance(error.error, _FailureError)
+            self.assertEqual(error.name, name_foo)
             self.assertEqual(error.index, 0)
             self.assertEqual(error.value, value_foo)
             self.assertEqual(error.func_name, 'func_a')
@@ -332,7 +347,9 @@ class Test(unittest.TestCase):
             error = errors[1]
             self.assertIsInstance(error, KeywordError)
             self.assertIsInstance(error.error, _FailureError1)
+            self.assertEqual(error.name, name_bar)
             self.assertEqual(error.value, value_bar)
+            self.assertEqual(error.default_value, None)
             self.assertEqual(error.func_name, 'func_b')
             self.assertEqual(error.func, func_b)
         else:
@@ -343,6 +360,7 @@ class Test(unittest.TestCase):
         _func_b = Mock(side_effect=_FailureError1())
         _func_oe = Mock(return_value='ignored return value')
 
+        name_foo = 'foo'
         value_foo = '.foo'
         name_bar = 'bar'
         value_ignored = '.ignored'
@@ -387,6 +405,7 @@ class Test(unittest.TestCase):
         error = errors[0]
         self.assertIsInstance(error, PositionalError)
         self.assertIsInstance(error.error, _FailureError)
+        self.assertEqual(error.name, name_foo)
         self.assertEqual(error.index, 0)
         self.assertEqual(error.value, value_foo)
         self.assertEqual(error.func_name, 'func_a')
@@ -395,7 +414,9 @@ class Test(unittest.TestCase):
         error = errors[1]
         self.assertIsInstance(error, KeywordError)
         self.assertIsInstance(error.error, _FailureError1)
+        self.assertEqual(error.name, name_bar)
         self.assertEqual(error.value, value_bar)
+        self.assertEqual(error.default_value, None)
         self.assertEqual(error.func_name, 'func_b')
         self.assertEqual(error.func, func_b)
 

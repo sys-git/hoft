@@ -6,10 +6,13 @@
 # @version 0.1
 # @copyright (c) 2017-present Francis Horsman.
 
+from inspect import getargspec, getcallargs
+
 import six
 
-from hoft.core.parsers import parse_keyword_inputs, parse_positional_inputs
-from .utils import raise_exc
+from hoft.core.parsers_in import parse_all_in_args
+from hoft.core.parsers_sig import parse_all_sig_args
+from hoft.core.utils import raise_exc
 
 
 def analyse_in(*parse_args, **parse_kwargs):
@@ -51,12 +54,64 @@ def analyse_in(*parse_args, **parse_kwargs):
     def decorator(func):
         @six.wraps(func)
         def wrapper(*args, **kwargs):
-            errors = []
             fail_fast = parse_kwargs.pop('_fail_fast_', False)
             on_error = parse_kwargs.pop('_on_error_', None)
 
-            parse_positional_inputs(parse_args, args, errors, on_error, fail_fast)
-            parse_keyword_inputs(parse_kwargs, kwargs, errors, on_error, fail_fast)
+            argspec = getargspec(func)
+
+            errors = parse_all_in_args(
+                parse_args,
+                parse_kwargs,
+                args,
+                kwargs,
+                argspec,
+                on_error,
+                fail_fast,
+            )
+
+            if errors and not fail_fast:
+                # We have errors to raise which have not already been raised.
+                exc = errors[0]
+                raise_exc(
+                    exc=exc.error,
+                    on_error=on_error,
+                    errors=errors,
+                    fail_fast=fail_fast,
+                    force=True,
+                )
+
+            # Call the wrapped function:
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+def analyse_sig(*parse_args, **parse_kwargs):
+    def decorator(func):
+        @six.wraps(func)
+        def wrapper(*args, **kwargs):
+            argspec = getargspec(func)
+            callargs = getcallargs(func, *args, **kwargs)
+
+            strict = parse_kwargs.pop('_strict_', None)
+            default = parse_kwargs.pop('_default_', None)
+            fail_fast = parse_kwargs.pop('_fail_fast_', False)
+            on_error = parse_kwargs.pop('_on_error_', None)
+
+            errors = parse_all_sig_args(
+                parse_args,
+                parse_kwargs,
+                args,
+                kwargs,
+                argspec,
+                callargs,
+                strict,
+                default,
+                on_error,
+                fail_fast,
+            )
 
             if errors and not fail_fast:
                 # We have errors to raise which have not already been raised.
