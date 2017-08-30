@@ -8,17 +8,21 @@
 
 from collections import namedtuple
 
-PositionalError = namedtuple('PositionalError',
-    ('error', 'name', 'index', 'value', 'func_name', 'func'))
+PositionalError = namedtuple('PositionalError', (
+    'error', 'name', 'index', 'value', 'func_name', 'func')
+)
 
-KeywordError = namedtuple('KeywordError',
-    ('error', 'name', 'value', 'default_value', 'func_name', 'func'))
+KeywordError = namedtuple('KeywordError', (
+    'error', 'name', 'value', 'default_value', 'func_name', 'func')
+)
 
-NotAnalysedError = namedtuple('NotAnalysedError',
-    ('error', 'name', 'argspec', 'callargs'))
+NotAnalysedError = namedtuple('NotAnalysedError', (
+    'error', 'name', 'argspec', 'callargs')
+)
 
-Signature = namedtuple('Signature',
-    ('args', 'vaargs', 'kwargs', 'keywords'))
+Signature = namedtuple(
+    'Signature', ('args', 'vaargs', 'kwargs', 'keywords')
+)
 """
 A Signature representing a parsed argspec for a function:
 
@@ -54,6 +58,7 @@ class ArgsNotAnalysedError(Exception):
     """
     One or more arguments were not analysed (when `strict=True`).
     """
+
     def __init__(self, names):
         """
         :param List[str] names:
@@ -69,6 +74,7 @@ class NoDefaultError(Exception):
     """
     No default value is provided for this argument.
     """
+
     def __init__(self, name, argspec):
         """
 
