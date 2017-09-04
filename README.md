@@ -1,8 +1,8 @@
-#H.O.F.T
+<h1>H.O.F.T</h1>
 
 [![Author](https://img.shields.io/badge/Author:%20francis%20horsman-Available-brightgreen.svg?style=plastic)](https://www.linkedin.com/in/francishorsman)
 
-##Higher Order Func Tools for Python2.7
+<h2>Higher Order Func Tools for Python2.7</h2>
 
 [![Build Status](https://travis-ci.org/sys-git/hoft.svg?branch=master)](https://travis-ci.org/sys-git/hoft)
 [![Coverage Status](https://coveralls.io/repos/github/sys-git/hoft/badge.svg)](https://coveralls.io/github/sys-git/hoft)
@@ -20,10 +20,10 @@ module) under the hood.
 
 The params are then passed directly to the decorated function and any exceptions are propagated back to the caller.
 
-###Read documentation
+<h3>Read documentation</h3>
 Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/latest/">readthedocs</a>
 
-###Use case
+<h3>Use case</h3>
 
 1. Used in conjunction with a parameter checking and validation library to perform parameter validation prior to function execution.
 
@@ -42,7 +42,7 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
     validation_lib_error: .....
 ```
 
-###Simple example
+<h3>Simple example</h3>
 
 ```
     from hoft import analyse_sig, IGNORE
@@ -74,13 +74,13 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
     # my_function is called as expected and receives: a=5, b=6, c=7, d=8, e='world'
 ```
 
-###To install
+<h3>To install</h3>
 
 ```
     $ pip install hoft
 ```
 
-###Build documentation
+<h3>Build documentation</h3>
 
 ```
     $ make sphinx-html
