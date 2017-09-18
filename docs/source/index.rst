@@ -22,7 +22,12 @@ HOFT - Higher Order Func Tools for Python2.7
     :target: https://img.shields.io/pypi/pyversions/hoft.svg
 .. image:: https://img.shields.io/pypi/status/hoft.svg
     :target: https://img.shields.io/pypi/status/hoft.svg
-
+.. image:: https://pyup.io/repos/github/sys-git/hoft/shield.svg
+    :target: https://pyup.io/repos/github/sys-git/hoft/
+    :alt: Updates
+.. image:: https://pyup.io/repos/github/sys-git/hoft/python-3-shield.svg
+    :target: https://pyup.io/repos/github/sys-git/hoft/
+    
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

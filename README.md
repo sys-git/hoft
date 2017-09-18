@@ -12,6 +12,8 @@
 [![PyPI](https://img.shields.io/pypi/wheel/hoft.svg)]()
 [![PyPI](https://img.shields.io/pypi/pyversions/hoft.svg)]()
 [![PyPI](https://img.shields.io/pypi/status/hoft.svg)]()
+[![Updates](https://pyup.io/repos/github/sys-git/hoft/shield.svg)](https://pyup.io/repos/github/sys-git/hoft/)
+[![Python 3](https://pyup.io/repos/github/sys-git/hoft/python-3-shield.svg)](https://pyup.io/repos/github/sys-git/hoft/)
 
 Decorators that can be used to analyse a function's positional, keyword and default arguments.
 
