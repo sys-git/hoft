@@ -25,21 +25,22 @@ Complete documentation can be found at <a href="http://hoft.readthedocs.io/en/la
 
 <h3>Use case</h3>
 
-1. Used in conjunction with a parameter checking and validation library to perform parameter validation prior to function execution.
+1. Used in conjunction with a parameter checking and certification library to perform parameter 
+certification prior to function execution.
 
 ```
     from hoft import analyse_sig, IGNORE
-    from validation_lib import validate_int, validate_string
+    from certifiable import certify_int, certify_string
     ...
 
-    @analyse_sig(validate_int(min_value=-100, max_value=100), IGNORE, c=IGNORE, d=validate_string(max_length=2))
+    @analyse_sig(certify_int(min_value=-100, max_value=100), IGNORE, c=IGNORE, d=certify_string(max_length=2))
     def my_function(a, b, c=None, d=None, e='world'):
         ...
 
     >>> my_function(-256, 'x', 'y', 'abcd')
     Traceback (most recent call last):
     ...
-    validation_lib_error: .....
+    CertifierError: .....
 ```
 
 <h3>Simple example</h3>
