@@ -22,7 +22,12 @@ HOFT - Higher Order Func Tools for Python2.7
     :target: https://img.shields.io/pypi/pyversions/hoft.svg
 .. image:: https://img.shields.io/pypi/status/hoft.svg
     :target: https://img.shields.io/pypi/status/hoft.svg
-
+.. image:: https://pyup.io/repos/github/sys-git/hoft/shield.svg
+    :target: https://pyup.io/repos/github/sys-git/hoft/
+    :alt: Updates
+.. image:: https://pyup.io/repos/github/sys-git/hoft/python-3-shield.svg
+    :target: https://pyup.io/repos/github/sys-git/hoft/
+    
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -41,17 +46,17 @@ Use case
 .. code-block:: python
 
     from hoft import analyse_sig, IGNORE
-    from validation_lib import validate_int, validate_string
+    from certifiable import certify_int, certify_string
     ...
 
-    @analyse_sig(validate_int(min_value=-100, max_value=100), IGNORE, c=IGNORE, d=validate_string(max_length=2))
+    @analyse_sig(certify_int(min_value=-100, max_value=100), IGNORE, c=IGNORE, d=certify_string(max_length=2))
     def my_function(a, b, c=None, d=None, e='world'):
         ...
 
     >>> my_function(-256, 'x', 'y', 'abcd')
     Traceback (most recent call last):
     ...
-    validation_lib_error: .....
+    CertifierError: .....
 
 Simple example
 --------------

@@ -1,0 +1,42 @@
+{% if theme_gratipay_user or theme_gittip_user %}
+<h3>Donate</h3>
+<p>
+<b>Consider supporting the authors:</b>
+    <script data-gratipay-username="{{ theme_gratipay_user or theme_gittip_user }}"
+            data-gratipay-widget="button"
+            src="//gttp.co/v1.js"></script>
+</p>
+<p>
+    <script src="http://coinwidget.com/widget/coin.js"></script>
+    <script>
+        CoinWidgetCom.go({
+            wallet_address  : '13vS6cvzZXf1Yxrar2SYSPQrFLSEwLePV4',
+            currency 		: 'bitcoin',
+            counter			: 'amount',
+            lbl_button 		: 'Gratitudes',
+            lbl_count		: 'payments',
+            lbl_amount 		: 'coins',
+            lbl_address		: 'Please send bitcoin to:',
+            qrcode			: true,
+            decimals		: 0,
+        });
+    </script>
+</p>
+<p>
+    <script src="http://coinwidget.com/widget/coin.js"></script>
+    <script>
+        CoinWidgetCom.go({
+            wallet_address  : 'LT636SrauWAz9XDz2EKxAXQ5jKqehyhR69',
+            currency 		: 'litecoin',
+            counter			: 'amount',
+            lbl_button 		: 'Gratitudes',
+            lbl_count		: 'payments',
+            lbl_amount 		: 'coins',
+            lbl_address		: 'Please send litecoin to:',
+            qrcode			: true,
+            decimals		: 0,
+        });
+    </script>
+</p>
+<br>
+{% endif %}
