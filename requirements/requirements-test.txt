@@ -13,5 +13,5 @@ pytest==3.2.3
 six==1.11.0
 tox==2.9.1
 vulture==0.26
-radon==2.1.1
+radon==4.5.0
 sphinx==1.6.5
