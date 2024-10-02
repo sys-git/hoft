@@ -12,6 +12,6 @@ pylint==1.7.4
 pytest==3.2.3
 six==1.11.0
 tox==2.9.1
-vulture==0.26
+vulture==2.13
 radon==2.1.1
 sphinx==1.6.5
